@@ -1,24 +1,35 @@
+﻿using Caliburn.Micro;
 using System;
-using System.IO;
+using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
 using Google.Apis.Upload;
 using Google.Apis.Util.Store;
 using Google.Apis.YouTube.v3.Data;
 using UpYours.Models;
-using GalaSoft.MvvmLight;
 using System.Collections.ObjectModel;
-using System.Collections.Generic;
-using GalaSoft.MvvmLight.CommandWpf;
-using UpYours.Messages;
-using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Win32;
-using System.Linq;
-using Google.Apis.YouTube.v3;
 
-namespace UpYours.ViewModel
+namespace UpYours.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    [InheritedExport]
+    public interface IViewModelBase
     {
+
+    }
+
+    [InheritedExport]
+    public interface IMainViewModel
+    {
+
+    }
+
+    public class MainViewModel : PropertyChangedBase, IViewModelBase, IMainViewModel
+    {
+        private readonly IWindowManager _windowManager;
+
         public static string DataDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
         public static IDataStore UserStorage = new FileDataStore(DataDir);
 
@@ -26,20 +37,29 @@ namespace UpYours.ViewModel
 
         public ObservableCollection<User> Users { get; set; }
 
-        public RelayCommand UploadCommand { get; set; }
-
-        public MainViewModel()
+        //public RelayCommand UploadCommand { get; set; }
+        [ImportingConstructor]
+        public MainViewModel(IWindowManager windowManager)
         {
+
+            _windowManager = windowManager;
             Videos = new ObservableCollection<Models.Video>();
             Users = new ObservableCollection<User>();
 
             Login();
 
-            Messenger.Default.Register<UploadMessage>(this, c => Upload(c.Video, Users[0]));
+            // Messenger.Default.Register<UploadMessage>(this, c => Upload(c.Video, Users[0]));
+        }
+
+        public void Add()
+        {
+            _windowManager.ShowWindow(new AddFileViewModel());
+            //OpenFile();
         }
 
         public void OpenFile()
         {
+            //TODO: Move this to AddFileViewModel
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
@@ -141,7 +161,7 @@ namespace UpYours.ViewModel
 
                 videosInsertRequest.ProgressChanged += (progress) => VideoUploadProgressChanged(progress, videomodel);
                 videosInsertRequest.ResponseReceived += (response) => VideoUploadResponseReceived(response, videomodel, user);
-                
+
                 videomodel.IsUploading = false;
 
                 await videosInsertRequest.UploadAsync();
@@ -212,3 +232,4 @@ namespace UpYours.ViewModel
         }
     }
 }
+
