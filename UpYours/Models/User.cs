@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace UpYours.Models
 {
     [ImplementPropertyChanged]
-    public class User
+    public class User //This would be more accurately called 'channel'
     {
         private UserCredential _credential;
         private YouTubeService _youtubeService;
@@ -28,6 +28,7 @@ namespace UpYours.Models
         private string userid;
         private IDataStore _userstorage;
 
+        public  string Username { get; set; }
         public User(string id, IDataStore UserStorage)
         {
             Categories = new ObservableCollection<Category>();
@@ -56,6 +57,7 @@ namespace UpYours.Models
 
             _credential = credential;
             _youtubeService = youtubeService;
+            GetDetailsUser();
         }
 
         public async Task GetDetailsUser()
@@ -63,7 +65,7 @@ namespace UpYours.Models
             var channelsListRequest = _youtubeService.Channels.List("contentDetails, snippet");
             channelsListRequest.Mine = true;
             var channelsListResponse = await channelsListRequest.ExecuteAsync();
-            var userName = channelsListResponse.Items[0].Snippet.Title;
+            Username = channelsListResponse.Items[0].Snippet.Title;
         }
 
 
