@@ -14,7 +14,7 @@ namespace UpYours.Models
         public User User { get; set; }
         public string Url { get; set; }
         public string Title { get; set; }
-        public string FilePath { get; set; } //  @"D:\The Wood Knight Branding\Intro\VideoLeft.mp4"; 
+        public string FilePath { get; set; } 
         public List<string> Tags { get; set; }
         public string Description { get; set; }
         public Category Category { get; set; }// See https://developers.google.com/youtube/v3/docs/videoCategories/list
