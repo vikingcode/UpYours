@@ -15,7 +15,7 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
-    <StackPanel IsEnabled="{Binding IsUploading}">
+    <StackPanel IsEnabled="{Binding Model.IsUploading}">
         <Grid Margin="0,0,0,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="55*"/>
@@ -24,33 +24,33 @@
 
             <StackPanel Grid.Column="0">
                 <Label Content="Title" />
-                <TextBox Text="{Binding Title}" Margin="0,5,0,5" />
+                <TextBox Text="{Binding Model.Title}" Margin="0,5,0,5" />
 
                 <Label Content="Description" />
-                <TextBox AcceptsReturn="True"  ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Text="{Binding Description}" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Height="148"   Margin="0,5,0,5" />
+                <TextBox AcceptsReturn="True"  ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Text="{Binding Model.Description}" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Height="148"   Margin="0,5,0,5" />
 
                 <Label Content="Tags" />
-                <TextBox Text="{Binding Tags}" Margin="0,5,0,5" />
+                <TextBox Text="{Binding Model.Tags}" Margin="0,5,0,5" />
             </StackPanel>
 
             <StackPanel Grid.Column="1" Margin="10,0,0,0">
                 <Label Content="Category" />
-                <ComboBox ItemsSource="{Binding User.Categories}" SelectedValue="{Binding Category}" Margin="0,5,0,5">
+                <ComboBox ItemsSource="{Binding Model.User.Categories}" SelectedValue="{Binding Model.Category}" Margin="0,5,0,5">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Title}" />
+                            <TextBlock Text="{Binding Model.Title}" />
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
 
                 <Label Content="Status" />
-                <ComboBox ItemsSource="{Binding Source={StaticResource MyEnumValues}}" SelectedValue="{Binding Status}" Margin="0,5,0,5" />
-                <Image Source="{Binding ImagePath}" Height="108" Width="192" Margin="0,5,0,5" HorizontalAlignment="Left"/>
+                <ComboBox ItemsSource="{Binding Source={StaticResource MyEnumValues}}" SelectedValue="{Binding Model.Status}" Margin="0,5,0,5" />
+                <Image Source="{Binding Model.ImagePath}" Height="108" Width="192" Margin="0,5,0,5" HorizontalAlignment="Left"/>
             </StackPanel>
         </Grid>
 
-        <Button Content="Upload" Click="Button_Click" Margin="0,0,227,0"  />
+        <Button Content="Upload" x:Name="Upload" Margin="0,0,227,0"  />
 
-        <ProgressBar Value="{Binding Progress}" Minimum="0" Maximum="100" Height="10" Margin="0,5,0,5" />
+        <ProgressBar Value="{Binding Model.Progress}" Minimum="0" Maximum="100" Height="10" Margin="0,5,0,5" />
     </StackPanel>
 </UserControl>

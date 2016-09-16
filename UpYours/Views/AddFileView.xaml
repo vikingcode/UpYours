@@ -7,6 +7,13 @@
         mc:Ignorable="d"
         Title="AddFileView" Height="300" Width="300">
     <Grid>
-        
+        <ListBox x:Name="Users">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Username}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            
+        </ListBox>
     </Grid>
 </Window>

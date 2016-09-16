@@ -7,17 +7,25 @@
         mc:Ignorable="d"
         xmlns:models="clr-namespace:UpYours.Models"
         xmlns:views="clr-namespace:UpYours.Views"
-        Title="MainView" Height="300" Width="300">
-    <Window.Resources>
+        Height="462" Width="524">
+    <!--<Window.Resources>
         <ResourceDictionary>
             <DataTemplate  DataType="{x:Type models:Video}">
                 <views:VideoView />
             </DataTemplate>
         </ResourceDictionary>
-    </Window.Resources>
+    </Window.Resources>-->
     <Grid>
-        <ListBox x:Name="lbVideos" ItemsSource="{Binding Videos}" Margin="10,35,10,10" HorizontalContentAlignment="Stretch"/>
-        <Button x:Name="Add" Content="Add" HorizontalAlignment="Left" Margin="432,10,0,0" VerticalAlignment="Top" Width="75"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <ListBox x:Name="Videos" Margin="10" HorizontalContentAlignment="Stretch" Grid.Row="2" />
+        <StackPanel Grid.Row="1" Orientation="Horizontal"  Margin="0,10,10,0" VerticalAlignment="Top" HorizontalAlignment="Right">
+            <Button x:Name="AddVideo" Content="Add Video" Margin="0,0,10,0" Width="75"/>
+            <Button x:Name="AddUser" Content="Add User" Width="75"/>
+        </StackPanel>
     </Grid>
 </Window>

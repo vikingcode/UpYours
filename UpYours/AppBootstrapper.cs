@@ -60,7 +60,7 @@ namespace UpYours
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            DisplayRootViewFor<IMainViewModel>();
+            DisplayRootViewFor<MainViewModel>();
         }
     }
 }
